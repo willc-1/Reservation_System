@@ -4,10 +4,7 @@
 #include <fstream>
 using namespace std;
 
-string username;
-string password;
 
-bool checkUserValid(string username);
-bool checkUserExist(string username);
+bool checkUserValid(string user, string pass);
 void Login();
 void Register();
