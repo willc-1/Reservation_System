@@ -100,7 +100,8 @@ void Register() {
     newuser << username << " " << password <<" "<< email << endl;
     user = "";
     pass = "";
-    printf("Register successfully!\n");
+    cout<<"Register successfully!"<<endl;
+    cout<<"------------------------------------------"<<endl;
     file.close();
     newuser.close();
 }
