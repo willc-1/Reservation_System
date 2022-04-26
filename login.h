@@ -6,5 +6,5 @@ using namespace std;
 
 
 bool checkUserValid(string user, string pass);
-void Login();
+void Login(string *user_name);
 void Register();

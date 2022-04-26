@@ -1,6 +1,5 @@
 #include "login.h"
 
-string user, pass, emails;
 
 
 bool checkUserValid(string user, string pass) {
@@ -27,20 +26,25 @@ bool checkUserValid(string user, string pass) {
 
 
 
-void Login() {
+void Login(string *user_name) {
     int loginattempts=0;
     ifstream userfile;
     userfile.open("users.txt");
     string userset, passset;
-    while (checkUserValid(user, pass)==false)
+    bool is_valid;
+    do
     {
         loginattempts++;
         cout << "Username: ";
-        cin >> user;
+        cin >> userset;
         cout << "Password: ";
-        cin >> pass;
-        if (checkUserValid(user, pass)!=0)
-            cout << "Welcome user: " << user << "!" << endl;
+        cin >> passset;
+        is_valid = checkUserValid(userset, passset);
+        *user_name = userset;
+        if (is_valid) {
+            cout << "Welcome user: " << userset << "!" << endl;
+            cout<<"------------------------------------------"<<endl;
+        }
         else if (loginattempts==5)
         {
             cout << "Maximum login attempts exceeded." << endl;
@@ -50,7 +54,7 @@ void Login() {
         {
             cout << "Invalid username/password combination" << endl;
         }
-    }
+    } while ( is_valid ==false);
     userfile.close();
 }
 
@@ -58,7 +62,7 @@ void Login() {
 void Register() {
     ifstream file;
     ofstream newuser;
-    string username, password, passwordconfirm, email;
+    string username, password, passwordconfirm, email, fileuser, filepass, fileemails;
     file.open("users.txt", ios::app);
     newuser.open("users.txt", ios::app);
     bool uservalid = false;
@@ -75,12 +79,12 @@ void Register() {
         int m = 0;
         int k = 0;
         int e = 0;
-        while (file >> user >> pass >> emails) {
+        while (file >> fileuser >> filepass >> fileemails) {
             m++;
-            if (username!=user) {
+            if (username!=fileuser) {
                 k++;
             }
-            if (email!=emails) {
+            if (email!=fileemails) {
                 e++;
             }
         }
@@ -98,8 +102,6 @@ void Register() {
         }
     }
     newuser << username << " " << password <<" "<< email << endl;
-    user = "";
-    pass = "";
     cout<<"Register successfully!"<<endl;
     cout<<"------------------------------------------"<<endl;
     file.close();
