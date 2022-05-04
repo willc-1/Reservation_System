@@ -13,6 +13,7 @@ class time_with_status {
     public:
         int get_timeSlot();
         bool get_status_();
+        void change_status();
         time_with_status(int timeslot);
         ~time_with_status();
 };
@@ -20,8 +21,6 @@ class time_with_status {
 class timelink_node {
     private:
         int weekday_;
-        //vector<time_with_status> node_;
-        //timelink_node* next;
     public:
         vector<time_with_status> node_;
         timelink_node* next;
@@ -32,7 +31,6 @@ class timelink_node {
 };      
 class timelink {
     private:
-        //timelink_node* head_;
         int length_;
         
     public:
@@ -42,17 +40,28 @@ class timelink {
         ~timelink();
 };
 
-    timelink *create_time_link(int length);
+    timelink *create_time_link(int length, timelink** timelink);
+
     void print_time_link(timelink* timelink);
 
-    void ListAppointment(string day, string time, bool wheTHerSuper);
+    void ListAppointment(string * userName, vector<string>* appointment);
+
+    /*
+        Function to check whether the time has already been reserved
+        This is used for timelink version
+    */
+    bool checkAvai_type1(int day, int timeslot, timelink* timelink);
+
+    /*
+        Function to check whether the time has already been reserved\
+        This is the file check version
+    */
+    bool checkAvai_type2(int day, int timeslot);
+
+    void changeAvai(int day, int timeslot, timelink* timelink);
 
 
-    bool checkAvai(string day, string time);
-
-
-
-    void MakeAppointment(string * user, string weekday, string timeslot);
+    void MakeAppointment(string * user, int weekday, int timeslot, timelink* timelink);
 
 
 
@@ -61,4 +70,4 @@ class timelink {
 
 
 
-    void cancleAppointment(string day, string time);
+    void cancelAppointment_type2(string time);
